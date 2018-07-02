@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
+  <!-- <script src="main.js"></script> -->
+</head>
+
+<body>
+  <h1>Hello from the other side!</h1>
+</body>
+<button class="button">click me</button>
+<script>
+  var button = document.getElementsByClassName('button');
+  // console.info('main script', button);
+  button[0].addEventListener('click', server);
+
+  function server() {
+    xhr = new XMLHttpRequest();
+    xhr.open("POST", "https://lit-brook-43242.herokuapp.com/endpoint", true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+    // xhr.open("GET", "https://lit-brook-43242.herokuapp.com/endpoint", true);
+    // xmlhttp.open("GET", "http://localhost/endpoint", true);
+
+    xhr.send(JSON.stringify({
+      email: "hello@user.com",
+      response: {
+        name: "Tester"
+      }
+    }));
+
+    xhr.onreadystatechange = function () {
+      // console.info(xhr);
+      if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+        string = xhr.responseText;
+        console.info(string);
+      }
+    }
+
+    //   xhr.onreadystatechange = function () {
+    //     console.info(xhr);
+    //     // if (xhr.readyState == 4 && xhr.status == 200) {
+    //     if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+    //       string = xhr.responseText;
+    //       console.info(string)
+    //     }
+    //   }
+    // }
+
+  }
+</script>
+
+</html>
